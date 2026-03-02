@@ -19,25 +19,25 @@ function App() {
       </div>
       <h1>Welcome to Relbot Test App</h1>
       <p className="subtitle">
-        This is a test application for testing user-facing and non-user-facing changes
+        A modern React application built with Vite for testing release automation
       </p>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          Click count: {count}
+          Counter: {count}
         </button>
         <p>
-          Edit <code>src/App.jsx</code> and save to test Hot Module Replacement
+          Make changes to <code>src/App.jsx</code> and see them update instantly with Hot Module Replacement
         </p>
         <p className="info-text">
-          This button demonstrates interactive functionality in the application
+          Use the counter button above to interact with the application
         </p>
       </div>
       <InfoCard 
         title="About This App"
-        description="This application is designed for testing relbot functionality with both user-facing and non-user-facing changes."
+        description="This application demonstrates modern web development practices and is used for testing automated release note generation."
       />
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more about these technologies
+        Learn more about Vite and React by clicking on their logos above
       </p>
     </>
   )
