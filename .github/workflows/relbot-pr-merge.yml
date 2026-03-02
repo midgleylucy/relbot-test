@@ -22,7 +22,6 @@ jobs:
       contents: read
       pull-requests: read
       issues: write  # For creating review issues if needed
-      metadata: read  # Required for repository access
     
     steps:
       - name: Checkout RelBot repository
