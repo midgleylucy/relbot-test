@@ -29,7 +29,8 @@ jobs:
         with:
           repository: 'moneyforward/relbot'
           path: relbot
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Use PAT if relbot repo is private, otherwise GITHUB_TOKEN
+          token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
       
       - name: Set up Go
         uses: actions/setup-go@v5
@@ -64,7 +65,9 @@ jobs:
         id: generate
         timeout-minutes: 8  # Step timeout (less than job timeout)
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Use PAT if provided, otherwise fall back to GITHUB_TOKEN
+          # PAT is needed for private repos or cross-org access
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ANTHROPIC_MODEL: ${{ secrets.ANTHROPIC_MODEL || 'claude-sonnet-4-5' }}
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
@@ -97,7 +100,8 @@ jobs:
         if: steps.generate.outputs.draft_created == 'true'
         timeout-minutes: 2  # Quick step, short timeout
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Use PAT if provided, otherwise fall back to GITHUB_TOKEN
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
           ./create_review_issue \
             -repo "${{ github.repository }}" \
