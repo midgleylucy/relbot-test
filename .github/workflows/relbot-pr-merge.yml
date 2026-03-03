@@ -94,7 +94,7 @@ jobs:
         continue-on-error: true  # Don't fail if PR is not user-facing
       
       - name: Notify Slack
-        if: steps.generate.outputs.draft_created == 'true' && secrets.SLACK_WEBHOOK_URL != ''
+        if: steps.generate.outputs.draft_created == 'true'
         timeout-minutes: 1
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -102,6 +102,10 @@ jobs:
           NOTES_PREVIEW: ${{ steps.generate.outputs.notes_preview }}
           PR_URL: https://github.com/${{ github.repository }}/pull/${{ steps.pr_info.outputs.pr_number }}
         run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "Skipping Slack - SLACK_WEBHOOK_URL not configured"
+            exit 0
+          fi
           payload=$(jq -n \
             --arg draft_url "$DRAFT_URL" \
             --arg notes_preview "$NOTES_PREVIEW" \
