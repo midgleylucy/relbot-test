@@ -76,8 +76,7 @@ jobs:
           NOTION_PROPERTY_SPRINT: ${{ secrets.NOTION_PROPERTY_SPRINT || 'Sprint' }}
           NOTION_PROPERTY_TICKET: ${{ secrets.NOTION_PROPERTY_TICKET || 'Ticket' }}
           NOTION_PROPERTY_PRODUCT: ${{ secrets.NOTION_PROPERTY_PRODUCT }}
-          NOTION_PROPERTY_STATUS: ${{ secrets.NOTION_PROPERTY_STATUS || 'Status' }}
-          NOTION_STATUS_UNREVIEWED: ${{ secrets.NOTION_STATUS_UNREVIEWED || 'Unreviewed' }}
+          NOTION_PROPERTY_REVIEWED: ${{ secrets.NOTION_PROPERTY_REVIEWED || 'Reviewed' }}
           # Product value (per repo: "Web", "Mobile App", or "aweb")
           NOTION_PRODUCT_VALUE: ${{ secrets.NOTION_PRODUCT_VALUE }}
         run: |
@@ -115,13 +114,7 @@ jobs:
                 { "type": "header", "text": { "type": "plain_text", "text": "📝 New Release Note Draft", "emoji": true } },
                 { "type": "section", "text": { "type": "mrkdwn", "text": "A release note draft has been created. Please review in Notion." } },
                 { "type": "section", "text": { "type": "mrkdwn", "text": ("*Preview:*\n" + $notes_preview) } },
-                {
-                  "type": "actions",
-                  "elements": [
-                    { "type": "button", "text": { "type": "plain_text", "text": "Review in Notion", "emoji": true }, "url": $draft_url },
-                    { "type": "button", "text": { "type": "plain_text", "text": "View PR", "emoji": true }, "url": $pr_url }
-                  ]
-                }
+                { "type": "section", "text": { "type": "mrkdwn", "text": ("<" + $draft_url + "|📝 Review in Notion> | <" + $pr_url + "|View PR>") } }
               ]
             }')
           curl -sS -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL"
