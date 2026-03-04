@@ -69,3 +69,35 @@
   background: rgba(100, 108, 255, 0.2);
   border: 1px solid rgba(100, 108, 255, 0.3);
 }
+
+.feedback-card h3 {
+  margin-top: 0;
+  font-size: 1.2em;
+}
+.feedback-prompt {
+  color: #666;
+  margin-bottom: 1rem;
+}
+.feedback-options {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.feedback-btn {
+  font-size: 2em;
+  padding: 0.5em;
+  min-width: 3rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.feedback-btn:hover {
+  transform: scale(1.15);
+}
+.feedback-btn.selected {
+  box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.5);
+}
+.feedback-thanks {
+  margin-top: 1rem;
+  font-weight: 500;
+  color: #646cff;
+}
