@@ -13,6 +13,32 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Theme overrides - explicit light and dark */
+[data-theme="light"],
+[data-theme="light"] body {
+  color: #213547;
+  background-color: #ffffff;
+}
+[data-theme="light"] a:hover {
+  color: #747bff;
+}
+[data-theme="light"] .subtitle,
+[data-theme="light"] .info-text,
+[data-theme="light"] .read-the-docs {
+  color: #666;
+}
+
+[data-theme="dark"],
+[data-theme="dark"] body {
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+}
+[data-theme="dark"] .subtitle,
+[data-theme="dark"] .info-text,
+[data-theme="dark"] .read-the-docs {
+  color: #888;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
