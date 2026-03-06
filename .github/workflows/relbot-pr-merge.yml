@@ -35,6 +35,7 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: '1.21'
+          cache-dependency-path: relbot/go.sum
       
       - name: Download RelBot dependencies
         working-directory: relbot
@@ -100,19 +101,31 @@ jobs:
           DRAFT_URL: ${{ steps.generate.outputs.draft_url }}
           NOTES_PREVIEW: ${{ steps.generate.outputs.notes_preview }}
           PR_URL: https://github.com/${{ github.repository }}/pull/${{ steps.pr_info.outputs.pr_number }}
+          PR_AUTHOR: ${{ steps.generate.outputs.pr_author }}
+          RELBOT_SLACK_USER_MAP: ${{ secrets.RELBOT_SLACK_USER_MAP }}
         run: |
           if [ -z "$SLACK_WEBHOOK_URL" ]; then
             echo "Skipping Slack - SLACK_WEBHOOK_URL not configured"
             exit 0
           fi
+          # Look up Slack user ID from GitHub username (format: github_user:U12345,user2:U67890)
+          echo "Debug: PR_AUTHOR='${PR_AUTHOR}' (used for Slack @mention lookup)"
+          SLACK_MENTION=""
+          if [ -n "$RELBOT_SLACK_USER_MAP" ] && [ -n "$PR_AUTHOR" ]; then
+            slack_id=$(echo "$RELBOT_SLACK_USER_MAP" | tr ',' '\n' | awk -v author="$(echo "$PR_AUTHOR" | tr '[:upper:]' '[:lower:]')" -F: 'tolower($1) == author { print $2; exit }')
+            if [ -n "$slack_id" ]; then
+              SLACK_MENTION="<@${slack_id}> "
+            fi
+          fi
           payload=$(jq -n \
             --arg draft_url "$DRAFT_URL" \
             --arg notes_preview "$NOTES_PREVIEW" \
             --arg pr_url "$PR_URL" \
+            --arg slack_mention "$SLACK_MENTION" \
             '{
               "blocks": [
                 { "type": "header", "text": { "type": "plain_text", "text": "📝 New Release Note Draft", "emoji": true } },
-                { "type": "section", "text": { "type": "mrkdwn", "text": "A release note draft has been created. Please review in Notion." } },
+                { "type": "section", "text": { "type": "mrkdwn", "text": ($slack_mention + "A release note draft has been created. Please review in Notion.") } },
                 { "type": "section", "text": { "type": "mrkdwn", "text": ("*Preview:*\n" + $notes_preview) } },
                 { "type": "section", "text": { "type": "mrkdwn", "text": ("<" + $draft_url + "|📝 Review in Notion> | <" + $pr_url + "|View PR>") } }
               ]
