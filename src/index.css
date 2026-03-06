@@ -26,7 +26,8 @@
 [data-theme="light"] .info-text,
 [data-theme="light"] .read-the-docs,
 [data-theme="light"] .feedback-prompt,
-[data-theme="light"] .calendar-description {
+[data-theme="light"] .calendar-description,
+[data-theme="light"] .quick-tips-list li {
   color: #666;
 }
 
@@ -39,7 +40,8 @@
 [data-theme="dark"] .info-text,
 [data-theme="dark"] .read-the-docs,
 [data-theme="dark"] .feedback-prompt,
-[data-theme="dark"] .calendar-description {
+[data-theme="dark"] .calendar-description,
+[data-theme="dark"] .quick-tips-list li {
   color: #888;
 }
 

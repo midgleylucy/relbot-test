@@ -18,6 +18,7 @@ function App() {
   const [feedback, setFeedback] = useState(null)
   const [showCopiedToast, setShowCopiedToast] = useState(false)
   const [showCalendarToast, setShowCalendarToast] = useState(false)
+  const [tipsExpanded, setTipsExpanded] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(
     () => window.matchMedia('(prefers-color-scheme: dark)').matches
   )
@@ -82,6 +83,23 @@ function App() {
       <p className="subtitle">
         A modern React application built with Vite for testing release automation
       </p>
+      <div className="quick-tips-card card">
+        <button
+          className="quick-tips-toggle"
+          onClick={() => setTipsExpanded((prev) => !prev)}
+          aria-expanded={tipsExpanded}
+        >
+          💡 Quick tips
+          <span className="quick-tips-chevron">{tipsExpanded ? '▲' : '▼'}</span>
+        </button>
+        {tipsExpanded && (
+          <ul className="quick-tips-list">
+            <li>Use the theme toggle for dark mode in low-light environments</li>
+            <li>Copy the page link to share with your team</li>
+            <li>Schedule a demo to see a live walkthrough</li>
+          </ul>
+        )}
+      </div>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           Counter: {count}
