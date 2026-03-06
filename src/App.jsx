@@ -4,8 +4,15 @@ import viteLogo from '/vite.svg'
 import InfoCard from './components/InfoCard'
 import './App.css'
 
+const FEEDBACK_OPTIONS = [
+  { emoji: '👍', label: 'Helpful' },
+  { emoji: '❤️', label: 'Love it' },
+  { emoji: '🎉', label: 'Exciting' },
+]
+
 function App() {
   const [count, setCount] = useState(0)
+  const [feedback, setFeedback] = useState(null)
   const [isDarkMode, setIsDarkMode] = useState(
     () => window.matchMedia('(prefers-color-scheme: dark)').matches
   )
@@ -54,6 +61,25 @@ function App() {
         title="Theme Toggle"
         description="Switch between light and dark mode using the button in the top-right corner for a more comfortable viewing experience."
       />
+      <div className="feedback-card card">
+        <h3>How was your experience?</h3>
+        <p className="feedback-prompt">Tap an emoji to share quick feedback</p>
+        <div className="feedback-options">
+          {FEEDBACK_OPTIONS.map(({ emoji, label }) => (
+            <button
+              key={emoji}
+              className={`feedback-btn ${feedback === emoji ? 'selected' : ''}`}
+              onClick={() => setFeedback(emoji)}
+              aria-label={label}
+            >
+              {emoji}
+            </button>
+          ))}
+        </div>
+        {feedback && (
+          <p className="feedback-thanks">Thanks for your feedback! {feedback}</p>
+        )}
+      </div>
       <p className="read-the-docs">
         Learn more about Vite and React by clicking on their logos above
       </p>
