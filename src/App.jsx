@@ -10,10 +10,14 @@ const FEEDBACK_OPTIONS = [
   { emoji: '🎉', label: 'Exciting' },
 ]
 
+// Replace with your Asana task or calendar booking link
+const CALENDAR_LINK = 'https://app.asana.com/0/0/0'
+
 function App() {
   const [count, setCount] = useState(0)
   const [feedback, setFeedback] = useState(null)
   const [showCopiedToast, setShowCopiedToast] = useState(false)
+  const [showCalendarToast, setShowCalendarToast] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(
     () => window.matchMedia('(prefers-color-scheme: dark)').matches
   )
@@ -30,9 +34,19 @@ function App() {
       setShowCopiedToast(true)
       setTimeout(() => setShowCopiedToast(false), 2000)
     } catch {
-      // Fallback for older browsers
       setShowCopiedToast(true)
       setTimeout(() => setShowCopiedToast(false), 2000)
+    }
+  }
+
+  const copyCalendarLink = async () => {
+    try {
+      await navigator.clipboard.writeText(CALENDAR_LINK)
+      setShowCalendarToast(true)
+      setTimeout(() => setShowCalendarToast(false), 2000)
+    } catch {
+      setShowCalendarToast(true)
+      setTimeout(() => setShowCalendarToast(false), 2000)
     }
   }
 
@@ -49,6 +63,11 @@ function App() {
       {showCopiedToast && (
         <div className="toast" role="status">
           Link copied to clipboard!
+        </div>
+      )}
+      {showCalendarToast && (
+        <div className="toast" role="status">
+          Calendar link copied!
         </div>
       )}
       <div>
@@ -82,6 +101,29 @@ function App() {
         title="Theme Toggle"
         description="Switch between light and dark mode using the button in the top-right corner for a more comfortable viewing experience."
       />
+      <div className="calendar-card card">
+        <h3>📅 Schedule a demo</h3>
+        <p className="calendar-description">
+          Book a time to see a live demo or view the task in Asana.
+        </p>
+        <div className="calendar-actions">
+          <a
+            href={CALENDAR_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="calendar-link-btn"
+          >
+            Open calendar / Asana
+          </a>
+          <button
+            className="copy-calendar-btn"
+            onClick={copyCalendarLink}
+            aria-label="Copy calendar link"
+          >
+            Copy link
+          </button>
+        </div>
+      </div>
       <div className="feedback-card card">
         <h3>How was your experience?</h3>
         <p className="feedback-prompt">Tap an emoji to share quick feedback</p>

@@ -101,6 +101,50 @@
   }
 }
 
+.calendar-card h3 {
+  margin-top: 0;
+  font-size: 1.2em;
+}
+.calendar-description {
+  color: #666;
+  margin-bottom: 1rem;
+}
+.calendar-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.calendar-link-btn {
+  padding: 0.5em 1em;
+  background: #646cff;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.calendar-link-btn:hover {
+  background: #535bf2;
+}
+.copy-calendar-btn {
+  padding: 0.5em 1em;
+  background: rgba(100, 108, 255, 0.2);
+  border: 1px solid rgba(100, 108, 255, 0.3);
+  border-radius: 8px;
+  color: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.copy-calendar-btn:hover {
+  background: rgba(100, 108, 255, 0.3);
+}
+
+.feedback-card {
+  margin-top: 2rem;
+}
+
 .feedback-card h3 {
   margin-top: 0;
   font-size: 1.2em;
