@@ -25,7 +25,8 @@
 [data-theme="light"] .subtitle,
 [data-theme="light"] .info-text,
 [data-theme="light"] .read-the-docs,
-[data-theme="light"] .feedback-prompt {
+[data-theme="light"] .feedback-prompt,
+[data-theme="light"] .calendar-description {
   color: #666;
 }
 
@@ -37,7 +38,8 @@
 [data-theme="dark"] .subtitle,
 [data-theme="dark"] .info-text,
 [data-theme="dark"] .read-the-docs,
-[data-theme="dark"] .feedback-prompt {
+[data-theme="dark"] .feedback-prompt,
+[data-theme="dark"] .calendar-description {
   color: #888;
 }
 
