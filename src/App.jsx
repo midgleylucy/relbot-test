@@ -13,6 +13,7 @@ const FEEDBACK_OPTIONS = [
 function App() {
   const [count, setCount] = useState(0)
   const [feedback, setFeedback] = useState(null)
+  const [showCopiedToast, setShowCopiedToast] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(
     () => window.matchMedia('(prefers-color-scheme: dark)').matches
   )
@@ -23,13 +24,33 @@ function App() {
 
   const toggleTheme = () => setIsDarkMode((prev) => !prev)
 
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href)
+      setShowCopiedToast(true)
+      setTimeout(() => setShowCopiedToast(false), 2000)
+    } catch {
+      // Fallback for older browsers
+      setShowCopiedToast(true)
+      setTimeout(() => setShowCopiedToast(false), 2000)
+    }
+  }
+
   return (
     <>
-      <div className="theme-toggle-container">
+      <div className="header-actions">
+        <button className="copy-link-btn" onClick={copyLink} aria-label="Copy page link">
+          📋 Copy link
+        </button>
         <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
           {isDarkMode ? '☀️ Light mode' : '🌙 Dark mode'}
         </button>
       </div>
+      {showCopiedToast && (
+        <div className="toast" role="status">
+          Link copied to clipboard!
+        </div>
+      )}
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
