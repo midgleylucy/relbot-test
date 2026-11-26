@@ -83,6 +83,9 @@ function App() {
       <p className="subtitle">
         A modern React application built with Vite for testing release automation
       </p>
+      <p className="whats-new-banner" role="status">
+        What's new: a status banner so RelBot can pick up screenshots in release notes
+      </p>
       <div className="quick-tips-card card">
         <button
           className="quick-tips-toggle"
