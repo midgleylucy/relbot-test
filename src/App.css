@@ -34,6 +34,17 @@
   }
 }
 
+.whats-new-banner {
+  display: inline-block;
+  margin: 0 auto 1.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: rgba(100, 108, 255, 0.18);
+  border: 1px solid rgba(100, 108, 255, 0.35);
+  font-size: 0.95em;
+  font-weight: 500;
+}
+
 .card {
   padding: 2em;
   background: rgba(100, 108, 255, 0.1);
